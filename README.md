@@ -54,6 +54,7 @@ $ make testacc
 * Allocation & Deallocation of IP from a Network
 * Association & Disassociation of IP Address for a VM
 * Creation and Deletion of A, CNAME, Host, and Ptr records
+* Retrive network information based on Network name, TenantID and CIDR
 
 ## Disclaimer
 To use the provider for DNS purposes, a parent (i.e. zone) must already exist. The plugin does not support the creation of zones.

@@ -1,10 +1,11 @@
 package infoblox
 
 import (
+	"time"
+
 	"github.com/hashicorp/terraform/helper/schema"
 	"github.com/hashicorp/terraform/terraform"
-	"github.com/infobloxopen/infoblox-go-client"
-	"time"
+	ibclient "github.com/infobloxopen/infoblox-go-client"
 )
 
 //Provider returns a terraform.ResourceProvider.
@@ -69,6 +70,9 @@ func Provider() terraform.ResourceProvider {
 			"infoblox_a_record":       resourceARecord(),
 			"infoblox_cname_record":   resourceCNAMERecord(),
 			"infoblox_ptr_record":     resourcePTRRecord(),
+		},
+		DataSourcesMap: map[string]*schema.Resource{
+			"infoblox_network": dataSourceNetwork(),
 		},
 		ConfigureFunc: providerConfigure,
 	}
