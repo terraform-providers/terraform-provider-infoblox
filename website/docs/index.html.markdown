@@ -14,10 +14,10 @@ The provider allows you to manage infoblox credentials.
 A typical provider configuration will look something like:
 
 ```hcl
-provider "infoblox"{
-INFOBLOX_USERNAME=infoblox
-INFOBLOX_SERVER=10.0.0.1
-INFOBLOX_PASSWORD=infoblox
+provider "infoblox" {
+username="admin"
+server="10.0.0.1" 
+password="infoblox"
 }
 ```
 
