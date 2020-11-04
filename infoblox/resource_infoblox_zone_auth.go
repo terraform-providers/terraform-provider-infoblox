@@ -3,7 +3,6 @@ package infoblox
 import (
 	"fmt"
 	"log"
-	"strings"
 
 	"github.com/hashicorp/terraform/helper/schema"
 	ibclient "github.com/infobloxopen/infoblox-go-client"
@@ -114,19 +113,7 @@ func resourceZoneAuthDelete(d *schema.ResourceData, m interface{}) error {
 	tenantID := d.Get("tenant_id").(string)
 	connector := m.(*ibclient.Connector)
 
-	domain := strings.SplitAfterN(fqdn, ".", 2)
-
-	log.Printf("++++++++++++++++++[DEBUG] %s: ++++++++++++++++++++++++", domain[1])
-
-	objMgr := ibclient.NewObjectManager(connector, "Terraform", tenantID)
-
-	foo, bar := objMgr.GetZoneAuthByFQDN(domain[1])
-
-	if foo != nil {
-		log.Printf("++++++++++++++++++[DEBUG] %s: ++++++++++++++++++++++++ %s", foo.Ref, bar)
-	}
-
-	return fmt.Errorf("deleting a auth zone is not supported")
+    objMgr := ibclient.NewObjectManager(connector, "Terraform", tenantID)
 
 	_, err := objMgr.DeleteZoneAuth(d.Id())
 	if err != nil {
