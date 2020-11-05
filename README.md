@@ -55,6 +55,7 @@ $ make testacc
 * Allocation & Deallocation of IP from a Network
 * Association & Disassociation of IP Address for a VM
 * Creation and Deletion of A, CNAME, Host, and Ptr records
+* Retrive network information based on Network name, TenantID and CIDR
 
 ### Data Source
 * Supports Data Source for Network
