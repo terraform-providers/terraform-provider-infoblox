@@ -25,7 +25,7 @@ func TestAccResourceZoneAuth(t *testing.T) {
 			resource.TestStep{
 				Config: testAccresourceZoneAuthUpdate,
 				Check: resource.ComposeTestCheckFunc(
-					testAccZoneAuthExists(t,  "infoblox_zone_auth.zone_auth", "aaa.com", "default", "test"),
+					testAccZoneAuthExists(t, "infoblox_zone_auth.zone_auth", "aaa.com", "default", "test"),
 				),
 			},
 		},
@@ -77,7 +77,7 @@ resource "infoblox_zone_auth" "zone_auth"{
 	dns_view="default"
 	tenant_id="test"
 	}`)
-	
+
 var testAccresourceZoneAuthUpdate = fmt.Sprintf(`
 resource "infoblox_zone_auth" "zone_auth"{
 	fqdn = "acctest.com"

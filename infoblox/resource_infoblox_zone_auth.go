@@ -113,7 +113,7 @@ func resourceZoneAuthDelete(d *schema.ResourceData, m interface{}) error {
 	tenantID := d.Get("tenant_id").(string)
 	connector := m.(*ibclient.Connector)
 
-    objMgr := ibclient.NewObjectManager(connector, "Terraform", tenantID)
+	objMgr := ibclient.NewObjectManager(connector, "Terraform", tenantID)
 
 	_, err := objMgr.DeleteZoneAuth(d.Id())
 	if err != nil {
