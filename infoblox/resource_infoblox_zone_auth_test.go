@@ -41,9 +41,9 @@ func testAccCheckZoneAuthDestroy(s *terraform.State) error {
 		}
 		Connector := meta.(*ibclient.Connector)
 		objMgr := ibclient.NewObjectManager(Connector, "terraform_test", "test")
-		recordName, _ := objMgr.GetZoneAuthByRef(rs.Primary.ID)
-		if recordName != nil {
-			return fmt.Errorf("record not found")
+		_, err := objMgr.GetZoneAuthByRef(rs.Primary.ID)
+		if err != nil {
+			return fmt.Errorf("Error:%s - record not found", err)
 		}
 
 	}
@@ -62,9 +62,9 @@ func testAccZoneAuthExists(t *testing.T, n string, fqdn string, dns_view string,
 		Connector := meta.(*ibclient.Connector)
 		objMgr := ibclient.NewObjectManager(Connector, "terraform_test", "test")
 
-		recordName, _ := objMgr.GetZoneAuthByRef(rs.Primary.ID)
-		if recordName == nil {
-			return fmt.Errorf("record not found")
+		_, err := objMgr.GetZoneAuthByRef(rs.Primary.ID)
+		if err != nil {
+			return fmt.Errorf("Error:%s - record not found", err)
 		}
 
 		return nil
