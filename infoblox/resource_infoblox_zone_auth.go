@@ -85,24 +85,8 @@ func resourceZoneAuthGet(d *schema.ResourceData, m interface{}) error {
 
 func resourceZoneAuthUpdate(d *schema.ResourceData, m interface{}) error {
 
-	return fmt.Errorf("updating a auth zone is not supported")
+	return fmt.Errorf("Updating an auth zone is not supported")
 
-	// log.Printf("[DEBUG] %s: Beginning to Update auth zone", resourceZoneAuthIDString(d))
-
-	// dnsView := d.Get("dns_view").(string)
-	// port := uint(d.Get("port").(int))
-	// tenantID := d.Get("tenant_id").(string)
-	// connector := m.(*ibclient.Connector)
-
-	// objMgr := ibclient.NewObjectManager(connector, "Terraform", tenantID)
-
-	// obj, err := objMgr.UpdateZoneAuth(d.Id(), dnsView, port)
-	// if err != nil {
-	// 	return fmt.Errorf("Updating auth zone failed from dns view (%s) : %s", dnsView, err)
-	// }
-	// d.SetId(obj.Ref)
-	// log.Printf("[DEBUG] %s: Completed updating required auth zone", resourceZoneAuthIDString(d))
-	// return nil
 }
 
 func resourceZoneAuthDelete(d *schema.ResourceData, m interface{}) error {
