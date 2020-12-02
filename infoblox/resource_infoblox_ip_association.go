@@ -191,7 +191,7 @@ func Resource(d *schema.ResourceData, m interface{}) error {
 	name := Name + "." + zone
 
 	if (zone != "" || len(zone) != 0) && (dnsView != "" || len(dnsView) != 0) {
-		hostRecordObj, err := objMgr.GetHostRecord(name)
+		hostRecordObj, err := objMgr.GetHostRecord(name, networkViewName, cidr, ipAddr)
 		if err != nil {
 			return fmt.Errorf("GetHostRecord failed from network block(%s):%s", cidr, err)
 		}

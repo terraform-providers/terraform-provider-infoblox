@@ -54,7 +54,7 @@ $ make testacc
 * Creation & Deletion of Network in NIOS appliance
 * Allocation & Deallocation of IP from a Network
 * Association & Disassociation of IP Address for a VM
-* Creation and Deletion of A, CNAME, Host, and Ptr records
+* Creation and Deletion of A, CNAME, Host, Zones and Ptr records
 
 ### Data Source
 * Supports Data Source for Network
