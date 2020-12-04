@@ -3,6 +3,7 @@ package infoblox
 import (
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/hashicorp/terraform/helper/schema"
 	ibclient "github.com/infobloxopen/infoblox-go-client"
@@ -79,14 +80,13 @@ func resourceZoneAuthGet(d *schema.ResourceData, m interface{}) error {
 		return fmt.Errorf("Getting auth zone failed from dns view (%s) : %s", fqdn, err)
 	}
 	d.SetId(obj.Ref)
+
 	log.Printf("[DEBUG] %s: Completed reading required auth zone ", resourceZoneAuthIDString(d))
 	return nil
 }
 
 func resourceZoneAuthUpdate(d *schema.ResourceData, m interface{}) error {
-
 	return fmt.Errorf("Updating an auth zone is not supported")
-
 }
 
 func resourceZoneAuthDelete(d *schema.ResourceData, m interface{}) error {
@@ -99,7 +99,16 @@ func resourceZoneAuthDelete(d *schema.ResourceData, m interface{}) error {
 
 	objMgr := ibclient.NewObjectManager(connector, "Terraform", tenantID)
 
-	_, err := objMgr.DeleteZoneAuth(d.Id())
+	zaList, err := objMgr.GetZoneAuth()
+	if err != nil {
+		return fmt.Errorf("Getting a list of all current AuthZones failed")
+	}
+
+	if hasSubdomain(ibclient.ZoneAuth{Fqdn: fqdn}, zaList) {
+		return fmt.Errorf("Cannot delete an AuthZone that has a sub-domain: %s", fqdn)
+	}
+
+	_, err = objMgr.DeleteZoneAuth(d.Id())
 	if err != nil {
 		return fmt.Errorf("Deletion of auth zone failed from dns view(%s) : %s", fqdn, err)
 	}
@@ -119,4 +128,13 @@ func resourceZoneAuthIDString(d resourceZoneAuthIDStringInterface) string {
 		id = "<new resource>"
 	}
 	return fmt.Sprintf("infoblox_auth_zone (ID = %s)", id)
+}
+
+func hasSubdomain(target ibclient.ZoneAuth, list []ibclient.ZoneAuth) bool {
+	for _, za := range list {
+		if za.Fqdn != target.Fqdn && strings.Contains(za.Fqdn, target.Fqdn) {
+			return true
+		}
+	}
+	return false
 }
